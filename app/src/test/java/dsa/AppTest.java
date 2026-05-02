@@ -7,8 +7,33 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test
+    void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
+
+    @Test
+    void appIsUniqueMethodTest() {
+        App classUnderTest = new App();
+        assertTrue(classUnderTest.isUnique(null));
+        assertTrue(classUnderTest.isUnique("A"));
+        assertTrue(classUnderTest.isUnique("Manish"));
+        assertFalse(classUnderTest.isUnique("AA"));
+
+    }
+
+    @Test
+    void appIsUniqueWithoutAdditionalDataStructuresTest() {
+        App classUnderTest = new App();
+        // This should pass (unique chars), but will fail due to the bug
+
+        assertTrue(classUnderTest.isUniqueWithoutAdditionalDataStructures(null));
+        assertTrue(classUnderTest.isUniqueWithoutAdditionalDataStructures("A"));
+        assertTrue(classUnderTest.isUniqueWithoutAdditionalDataStructures("Manish"));
+        assertFalse(classUnderTest.isUniqueWithoutAdditionalDataStructures("AA"));
+
+        assertFalse(classUnderTest.isUniqueWithoutAdditionalDataStructures("Aa"));
+    }
+
 }

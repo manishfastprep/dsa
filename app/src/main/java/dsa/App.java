@@ -9,6 +9,82 @@ public class App {
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
     }
+
+    // 1.1 IsUnique Implement an algorithm to determine if a string has all unique
+    // characters .
+    // What if you cannot use additional data structures?
+
+    /**
+     * Assumption is that characters are ASCII string only
+     */
+
+    // Solution 1 :- Crate an array of boolean values where the flag at index i
+    // indicates
+    // whether character i in the alphabet is contained in the ring. The second time
+    // we see the same character we return false
+
+    boolean isUnique(String input) {
+        if (input == null || input.length() <= 1)
+            return true;
+
+        // ASCII (American Standard Code for Information Interchange) is a character
+        // encoding standard that uses 7 bits to represent characters. it can represent
+        // a total of 128 characters(2^7), including letters,
+        // digits, punctuation marks, and control characters.
+        // The ASCII character set includes the English alphabet (both uppercase and
+        // lowercase), digits (0-9),
+        // and various special characters. Each character is assigned a unique numerical
+        // value in the range of 0 to 127.
+        // For example, the character 'A' is represented by the value 65, while 'a' is
+        // represented by the value 97.
+        // ASCII is widely used in computing and communication systems to represent text
+        // and control characters.
+
+        // char ch = 'A';
+        // int asciiValue = (int) ch; // asciiValue will be 65
+
+        // The total numbers of unique characters in ASCII is 128, so if the input
+        // string has more than 128 characters, it must contain duplicates.
+        if (input.length() > 128)
+            return false;
+
+        boolean[] charSet = new boolean[128];
+
+        for (int i = 0; i < input.length(); i++) {
+            int val = input.charAt(i);
+            if (charSet[val]) { // already found this char in string
+                return false;
+            }
+            charSet[val] = true;
+        }
+
+        return true;
+    }
+
+    // limited to 32 unique characters only, so this solution is not suitable for
+    // all ASCII characters
+    boolean isUniqueWithoutAdditionalDataStructures(String input) {
+        if (input == null || input.length() <= 1)
+            return true;
+
+        if (input.length() > 128)
+            return false;
+
+        int checker = 0; // limited to 32 unique characters only, so this solution is not suitable for
+                         // all ASCII characters
+
+        for (int i = 0; i < input.length(); i++) {
+            int val = input.charAt(i);
+
+            if ((checker & (1 << val)) > 0) { // already found this char in string
+                return false;
+            }
+            checker |= (1 << val);
+        }
+
+        return true;
+    }
+
 }
